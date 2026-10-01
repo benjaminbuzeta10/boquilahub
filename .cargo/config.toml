@@ -2,4 +2,4 @@
 xtask = "run --package xtask --"
 
 [env]
-FFMPEG_DIR = { value = "deps/ffmpeg", relative = true }
+FFMPEG_DIR = { value = "deps/ffmpeg", relative = true, force = true }

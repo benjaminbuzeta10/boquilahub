@@ -18,3 +18,19 @@ target_wasm
 # random ideas
 /thoughts
 logs.MD
+
+# vcpkg local (no lo usa el proyecto; ffmpeg y onnxruntime se bajan con `cargo xtask fetch`)
+/vcpkg
+
+# logs del script compilar.bat
+build_log.txt
+
+# IDEs / editores
+/.vs
+/.idea
+/.vscode
+*.code-workspace
+
+# Windows
+Thumbs.db
+desktop.ini

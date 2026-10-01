@@ -325,6 +325,8 @@ impl Ep {
         { return Ep::Cuda; }
         #[cfg(feature = "webgpu")]
         { return Ep::WebGPU; }
+        #[cfg(not(any(feature = "cuda", feature = "webgpu")))]
+        { Ep::Cpu }
     }
 
     pub const fn variants() -> &'static [Ep] {
