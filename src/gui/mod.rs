@@ -1,4 +1,22 @@
 mod audio;
+// ==================== DATA STUDIO (inicio) ====================
+mod data_studio;
+// #####editor de resultados#####
+// #####editor de resultados#####
+// #####editor de resultados#####
+mod editor_resultados;
+// #####
+// #####histograma de confianza#####
+// #####histograma de confianza#####
+// #####histograma de confianza#####
+mod histograma;
+// #####
+// #####distribucion por tipo#####
+// #####distribucion por tipo#####
+// #####distribucion por tipo#####
+mod distribucion_tipo;
+// #####
+// ==================== DATA STUDIO (fin) =======================
 mod feed;
 #[path = "image.rs"]
 mod image_view;
@@ -151,6 +169,14 @@ pub struct Gui {
 
     // bool fields grouped together (1 byte each, but will be padded)
     show_ai_cls: bool,
+    // ==================== DATA STUDIO (inicio) ====================================================================
+    data_studio: bool, // true = se muestra la pantalla de Data Studio
+    // #####editor de resultados#####
+    // #####editor de resultados#####
+    // #####editor de resultados#####
+    editor_resultados: editor_resultados::EditorResultados, // estado del editor de resultados
+    // #####
+    // ==================== DATA STUDIO (fin) ========================================================================
     isapi_deployed: bool,
     save_img_from_feed: bool,
     process_all_imgs: bool,
@@ -1008,8 +1034,28 @@ impl eframe::App for Gui {
                 });
 
                 egui::widgets::global_theme_preference_switch(ui);
+
+                // ==================== DATA STUDIO (inicio) =========================================================================================================================
+                ui.separator();
+                if ui
+                    .add(egui::Button::new("📊 Data Studio").selected(self.data_studio))
+                    .clicked()
+                {
+                    self.data_studio = !self.data_studio;
+                }
+                // ==================== DATA STUDIO (fin) =============================================================================================================================
             });
         });
+
+        // ==================== DATA STUDIO (inicio) ==================================================================================================================================
+        // Pantalla de Data Studio: reemplaza los paneles normales mientras está abierta.
+        if self.data_studio {
+            egui::CentralPanel::default().show(main_ui, |ui| {
+                self.ui_data_studio(ui);
+            });
+            return;
+        }
+        // ==================== DATA STUDIO (fin) ======================================================================================================================================
 
         egui::Panel::left("left_panel").show(main_ui, |ui| {
             ui.vertical_centered(|ui| {
